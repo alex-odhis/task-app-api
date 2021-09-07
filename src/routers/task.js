@@ -25,11 +25,11 @@ router.post('/tasks', auth, async (req, res) => {
 //GET/task?limit=10&skip=20
 //GET/task?sortBy=createdAt:desc
 router.get('/tasks', auth, async (req, res) => {
-    const match= {}
-    const sort = {}
+    const match={}
+    const sort={}
 
-    if (req.query.complete) {
-        match.complete = req.query.complete === 'true'
+    if (req.query.comlete) {
+        match.comlete = req.query.comlete === 'true'
     }
 
     if (req.query.sortBy) {
@@ -38,9 +38,6 @@ router.get('/tasks', auth, async (req, res) => {
     }
 
     try {
-        // const tasks = await Task.find({owner: req.user._id})
-        // res.send(tasks)
-        //  OR
         await req.user.populate({
             path: 'tasks',
             match,
@@ -52,7 +49,7 @@ router.get('/tasks', auth, async (req, res) => {
         }).execPopulate()
         res.send(req.user.tasks)
     } catch (e) {
-        res.status(500).send()
+        res.status(500).send('there was aproblem fetching tasks')
     }
 
 })

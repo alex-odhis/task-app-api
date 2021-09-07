@@ -3,19 +3,25 @@ require('./db/mongoose')
 const userRouter = require('./routers/user')
 const taskRouter = require('./routers/task')
 const cors = require('cors')
-const bodyParser = require('body-parser');
+const path = require('path')
+
 
 const app = express()
-const port= process.env.PORT
+const port= process.env.PORT || 3000
 
 // app.use((req, res, next)=>{
 //     res.status(503).send('Service is currently under maintainance, Please try again soon') 
 // })
 
-
+app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 app.use(cors())
-app.use(bodyParser.json())
+app.use(express.static(path.join(__dirname, 'public')))
+
+app.get('*', (req, res)=>{
+    res.sendFile(path.join(__dirname, 'public/index.html'))
+})
+
 
 //ROUTES
 app.use(userRouter)

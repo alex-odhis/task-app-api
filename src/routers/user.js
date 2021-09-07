@@ -69,7 +69,7 @@ router.patch('/users/me', auth, async (req, res) => {
     const allowedUpdates = ['name', 'email', 'password', 'age']
     const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
-    if (!isValidOperation) {
+    if (!!isValidOperation) {
         return res.status(400).send('Invalid Update')
     }
     try {
@@ -99,7 +99,6 @@ router.delete('/users/me', auth, async (req, res) => {
 const upload = multer({
     limits:{
         fileSize: 1000000
-
     },
     fileFilter(req, file, cb){
         if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
