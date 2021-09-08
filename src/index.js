@@ -13,7 +13,7 @@ const port= process.env.PORT || 3000
 //     res.status(503).send('Service is currently under maintainance, Please try again soon') 
 // })
 
-app.use(express.urlencoded({extended:false}))
+app.use(express.urlencoded({extended:true}))
 app.use(express.json())
 app.use(cors())
 app.use(express.static(path.join(__dirname, 'public')))
